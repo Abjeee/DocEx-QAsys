@@ -50,3 +50,62 @@ The model was fine-tuned on the **CORD-v2** dataset to align general vision-lang
 ├── notebook/
 │   └── DocEx_and_QAsys_Pipeline.ipynb  <-- Full system code
 ├── README.md                           <-- Project documentation
+```
+
+## 🚀 Setup & Installation
+
+### 1. Prerequisites
+* **Google Colab:** An environment with a **T4 GPU** runtime enabled.
+* **Python:** Version 3.10 or higher.
+
+### 2. Dependencies
+To install the necessary libraries, run the following command in a code cell:
+```bash
+!pip install --no-deps bitsandbytes accelerate xformers==0.0.29.post3 peft trl triton cut_cross_entropy unsloth_zoo
+!pip install  sentencepiece protobuf datasets huggingface_hub hf_transfer
+!pip install --no-deps unsloth
+```
+## 📦 Loading the Trained Adapters
+
+The model adapters are hosted externally due to file size constraints (~150MB).
+
+### Steps to Load
+
+1. **Download**  
+   Get the `receipt_adapters.zip` from the Google Drive link[https://drive.google.com/file/d/1uecb05pYLVPUAYtMsngs0JsvrjsOIoog/view?usp=drive_link].
+
+2. **Upload**  
+   Upload the `.zip` file directly to your Colab root directory.
+
+3. **Execute**  
+   The notebook is pre-configured to automatically load the weights from the `/receipt_adapters` directory.
+
+---
+
+---
+
+## ⚠️ Limitations & Challenges
+
+### 🐢 Inference Latency
+
+**Challenge:** High-resolution image processing currently results in a latency of **~20 seconds per inference**. 
+
+**Future Optimization:** I have identified **Dynamic Visual Scaling** and **Token-Dropping** as the primary strategies to reduce this bottleneck. By constraining the visual tokens to a maximum of 1024x1024 equivalent pixels, future iterations will target sub-2-second performance.
+
+---
+
+### 📈 Scalability & Storage
+
+**Challenge:** The current **local JSON document store** is efficient for prototyping but limited in its ability to handle large-scale historical data.
+
+**Future Optimization:** Migration to a **Vector Database** (e.g., ChromaDB or Pinecone) is planned. This will allow the system to handle 10,000+ receipts with sub-millisecond semantic retrieval speeds.
+
+---
+
+### ✍️ Handwriting OCR
+
+**Challenge:** Optimization is currently focused on **printed digital receipts**, which may result in lower accuracy for manual annotations.
+
+**Future Optimization:** Future development involves augmenting the training pipeline with specialized datasets (like IAM or IAM-Hist) to improve the extraction of handwritten totals, signatures, and merchant notes.
+
+---
