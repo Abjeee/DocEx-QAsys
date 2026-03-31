@@ -109,3 +109,8 @@ The model adapters are hosted externally due to file size constraints (~150MB).
 **Future Optimization:** Future development involves augmenting the training pipeline with specialized datasets (like IAM or IAM-Hist) to improve the extraction of handwritten totals, signatures, and merchant notes.
 
 ---
+## Screenshots
+
+![App Demo](./images/upload_extract.png)
+
+![App Demo](./images/QA_sys.png)
